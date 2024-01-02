@@ -44,6 +44,7 @@ train_iter, test_iter = load_data_fashion_mnist(batch_size)
 
 train_data = []
 test_data = []
+
 start = time.time()
 for X, y in train_iter:
     train_data.append((X, y))
