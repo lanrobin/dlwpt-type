@@ -1,0 +1,1 @@
+If you want to debug from vscode, add "cwd": "${fileDirname}" to the configurations section.
