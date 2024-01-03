@@ -170,7 +170,7 @@ def semilogy(x_vals, y_vals, x_label, y_label, x2_vals=None, y2_vals=None,
     if x2_vals and y2_vals:
         plt.semilogy(x2_vals, y2_vals, linestyle=':')
         plt.legend(legend)
-    # plt.show()
+    plt.show()
 
 
 
@@ -274,7 +274,21 @@ def load_data_fashion_mnist(batch_size, resize=None, root=f'{DOWNLOAD_DATA_ROOT}
 
     return train_iter, test_iter
 
+# We load the data into memory to avoid reading the disk each epoch.
+def load_data_fashion_mnist_to_memory(batch_size, resize=None, root=f'{DOWNLOAD_DATA_ROOT}/Datasets/FashionMNIST'):
 
+    train_iter, test_iter = load_data_fashion_mnist(batch_size, resize, root)
+    print("start to load data ...")
+    train_data = []
+    test_data = []
+    start = time.time()
+    for X, y in train_iter:
+        train_data.append((X, y))
+
+    for X, y in test_iter:
+        test_data.append((X, y))
+    print('%.2f sec to load the data.' % (time.time() - start))
+    return train_data, test_data
 
 ############################# 5.8 ##############################
 class GlobalAvgPool2d(nn.Module):
