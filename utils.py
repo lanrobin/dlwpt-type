@@ -287,7 +287,7 @@ def load_data_fashion_mnist_to_memory(batch_size, resize=None, root=f'{DOWNLOAD_
 
     for X, y in test_iter:
         test_data.append((X, y))
-    print('%.2f sec to load the data.' % (time.time() - start))
+    print(f'{(time.time() - start)} sec to load the data. train_data len:{len(train_data)}, test_data len:{len(test_data)}')
     return train_data, test_data
 
 ############################# 5.8 ##############################
