@@ -48,7 +48,7 @@ n_train = train_data.shape[0]
 
 train_labels = torch.tensor(train_data.SalePrice.values, dtype=torch.float32).view(-1, 1)
 
-
+# need to add astype to convert from object to float32, or else will get error: TypeError: can't convert np.ndarray of type numpy.object_. The only supported types are: float64, float32, float16, int64, int32, and uint8.
 train_features_nparray = all_features[:n_train].values.astype(np.float32)
 test_features_nparray = all_features[n_train:].values.astype(np.float32)
 
