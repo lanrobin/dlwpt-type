@@ -220,6 +220,8 @@ def evaluate_accuracy(data_iter, net, device=None):
             if isinstance(net, torch.nn.Module):
                 net.eval() # 评估模式, 这会关闭dropout
                 acc_sum += (net(X.to(device)).argmax(dim=1) == y.to(device)).float().sum().cpu().item()
+                #print(f"net(X.to(device)):{net(X.to(device)).argmax(dim=1).cpu()}, y:{y}")
+                #print(f"acc_sum:{acc_sum}")
                 net.train() # 改回训练模式
             else: # 自定义的模型, 3.13节之后不会用到, 不考虑GPU
                 if('is_training' in net.__code__.co_varnames): # 如果有is_training这个参数
@@ -288,6 +290,7 @@ def load_data_fashion_mnist_to_memory(batch_size, resize=None, root=f'{DOWNLOAD_
     for X, y in test_iter:
         test_data.append((X, y))
     print(f'{(time.time() - start)} sec to load the data. train_data len:{len(train_data)}, test_data len:{len(test_data)}')
+    print(f"train_data[0][0].shape:{train_data[0][0].shape}")
     return train_data, test_data
 
 ############################# 5.8 ##############################

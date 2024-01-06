@@ -32,7 +32,7 @@ def batch_norm(is_training, X, gamma, beta, moving_mean, moving_var, eps, moment
     return Y, moving_mean, moving_var
 
 class BatchNorm(nn.Module):
-    def __init__(self, num_features, num_dims) -> None:
+    def __init__(self, num_features, num_dims):
         super(BatchNorm, self).__init__()
         if num_dims == 2:
             shape = (1, num_features)
