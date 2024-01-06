@@ -90,7 +90,7 @@ def train_ch5(net, train_data, test_data, batch_size, optimizer, device, num_epo
               % (epoch + 1, train_l_sum / batch_count, train_acc_sum / n, test_acc, time.time() - start))
 
 
-lr, num_epochs = 0.001, 50
+lr, num_epochs = 0.001, 5
 optimizer = torch.optim.Adam(net.parameters(), lr=lr)
 train_ch5(net, train_data, test_data, batch_size, optimizer, device, num_epochs)
 
