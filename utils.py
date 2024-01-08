@@ -357,7 +357,7 @@ def load_data_jay_lyrics():
         with zin.open('jaychou_lyrics.txt') as f:
             corpus_chars = f.read().decode('utf-8')
     corpus_chars = corpus_chars.replace('\n', ' ').replace('\r', ' ')
-    corpus_chars = corpus_chars[0:10000]
+    corpus_chars = corpus_chars[0:40000]
     idx_to_char = list(set(corpus_chars))
     char_to_idx = dict([(char, i) for i, char in enumerate(idx_to_char)])
     vocab_size = len(char_to_idx)
