@@ -42,7 +42,7 @@ VOC_COLORMAP = [[0, 0, 0], [128, 0, 0], [0, 128, 0], [128, 128, 0],
 
 
 # ###################### 3.2 ############################
-def set_figsize(figsize=(3.5, 2.5)):
+def set_figsize(figsize=(14, 10)):
     use_svg_display()
     # 设置图的尺寸
     plt.rcParams['figure.figsize'] = figsize
@@ -451,11 +451,12 @@ def train_and_predict_rnn(rnn, get_params, init_rnn_state, num_hiddens,
         data_iter_fn = data_iter_consecutive
     params = get_params()
     loss = nn.CrossEntropyLoss()
-
+    start = time.time()
     for epoch in range(num_epochs):
         if not is_random_iter:  # 如使用相邻采样，在epoch开始时初始化隐藏状态
             state = init_rnn_state(batch_size, num_hiddens, device)
-        l_sum, n, start = 0.0, 0, time.time()
+
+        l_sum, n = 0.0, 0
         data_iter = data_iter_fn(corpus_indices, batch_size, num_steps, device)
         for X, Y in data_iter:
             if is_random_iter:  # 如使用随机采样，在每个小批量更新前初始化隐藏状态
@@ -490,9 +491,13 @@ def train_and_predict_rnn(rnn, get_params, init_rnn_state, num_hiddens,
         if (epoch + 1) % pred_period == 0:
             print('epoch %d, perplexity %f, time %.2f sec' % (
                 epoch + 1, math.exp(l_sum / n), time.time() - start))
+            start = time.time()
             for prefix in prefixes:
                 print(' -', predict_rnn(prefix, pred_len, rnn, params, init_rnn_state,
                     num_hiddens, vocab_size, device, idx_to_char, char_to_idx))
+                
+            print(f"predict time:{time.time() - start} sec")
+            start = time.time()
 
                 
                 
